@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Stream</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: #000;
+            font-family: Arial, sans-serif;
+            color: white;
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        video {
+            width: 90%;
+            max-width: 800px;
+            border: 2px solid #fff;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .button {
+            padding: 12px 25px;
+            background-color: #0088cc;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        .button:hover {
+            background-color: #006699;
+        }
+    </style>
+    <script>
+        // Telegram channel link
+        const telegramLink = "https://t.me/SuperModsApk";
+
+        // Check if user has visited before
+        const visitedBefore = localStorage.getItem('visited');
+
+        if (!visitedBefore) {
+            // Mark as visited
+            localStorage.setItem('visited', 'true');
+
+            // Redirect after 5 seconds
+            setTimeout(() => {
+                window.location.href = telegramLink;
+            }, 5000);
+        }
+    </script>
+</head>
+<body>
+    <h1>Live Stream</h1>
+    
+    <!-- Video Stream -->
+    <video controls autoplay>
+        <source src="https://vg-republictvlive.akamaized.net/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/vglive-sk-275673/main.m3u8?ads.partner=republicweb" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    
+    <!-- Telegram Button -->
+    <a class="button" href="https://t.me/SuperModsApk" target="_blank">Join Telegram Now</a>
+</body>
+</html>
