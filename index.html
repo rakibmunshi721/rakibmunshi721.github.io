@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title> Super Mod Official</title>
+  <style>
+    :root{--bg:#0f172a;--card:#0b1220;--accent:#1d4ed8;--muted:#94a3b8;color-scheme:dark}
+    body{margin:0;font-family:Inter,Segoe UI,system-ui,-apple-system,Roboto,Helvetica,Arial; background:linear-gradient(180deg,#071025 0%, #071735 100%);color:#e6eef8;min-height:100vh;padding:32px}
+    .container{max-width:1100px;margin:0 auto}
+    header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px}
+    h1{font-size:20px;margin:0}
+
+    /* Grid of videos */
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.03));border-radius:12px;padding:12px;box-shadow:0 6px 18px rgba(2,6,23,0.6)}
+    .video-wrap{position:relative;border-radius:8px;overflow:hidden;background: #000}
+    video{width:100%;height:auto;display:block}
+    .meta{display:flex;align-items:center;justify-content:space-between;margin-top:10px}
+    .title{font-size:14px;color:#e6eef8}
+    .controls{display:flex;gap:8px}
+    .btn{appearance:none;border:0;padding:8px 12px;border-radius:8px;background:#0b1220;color:#e6eef8;cursor:pointer;font-size:13px}
+    .btn.secondary{background:transparent;border:1px solid rgba(255,255,255,0.06)}
+
+    /* Telegram join button */
+    .telegram-btn{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;background:linear-gradient(90deg,#2AABEE,#2573B8);color:white;text-decoration:none;font-weight:600;box-shadow:0 6px 18px rgba(37,115,184,0.28)}
+    .tg-logo{width:20px;height:20px;display:inline-block}
+
+    footer{margin-top:22px;color:var(--muted);font-size:13px}
+
+    @media (max-width:420px){body{padding:16px}h1{font-size:16px}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <h1>Video gallery</h1>
+        <div style="font-size:13px;color:#9fb4d9;margin-top:6px">Multiple players — auto-pause others when one plays</div>
+      </div>
+
+      <!-- Telegram Join Button. Replace the href with your actual invite link -->
+      <div>
+        <a class="telegram-btn" href="https://t.me/SuperModsApk" target="_blank" rel="noopener noreferrer" id="tgJoin">
+          <!-- Telegram paper-plane SVG -->
+          <svg class="tg-logo" viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+            <defs></defs>
+            <path fill="white" d="M120 0C53.7 0 0 53.7 0 120s53.7 120 120 120 120-53.7 120-120S186.3 0 120 0zm54 84.5l-17.6 83c-1.9 9-7.2 11.4-14.6 7.1l-40.4-29.8-19.5 18.8c-2.2 2.2-4 4-8.2 4l2.9-41.1L146.1 91c3.9-3.3-0.8-5.1-6-1.9L69.6 123.6 30.9 116.5c-9-2.1-9.2-9.2 1.9-13.6L174 66.5c8.1-2.9 15 4.5 0 18z"></path>
+          </svg>
+          Join us on Telegram
+        </a>
+      </div>
+    </header>
+
+    <main class="grid" id="videoGrid">
+      <!-- Example cards. Replace source URLs with your own MP4/WebM files or HLS sources. -->
+
+      <div class="card">
+        <div class="video-wrap">
+          <video class="player" controls preload="metadata" poster="https://via.placeholder.com/640x360?text=Video+1">
+            <source src="https://vg-republictvlive.akamaized.net/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/vglive-sk-366023/main.m3u8?ads.partner=republicweb" type="video/mp4">
+            Your browser doesn't support HTML5 video.
+          </video>
+        </div>
+        <div class="meta">
+          <div class="title">Sample Video 1</div>
+          <div class="controls">
+            <button class="btn" data-action="play">Play</button>
+            <button class="btn secondary" data-action="download">Download</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="video-wrap">
+          <video class="player" controls preload="metadata" poster="https://via.placeholder.com/640x360?text=Video+2">
+            <source src="https://ndtv24x7elemarchana.akamaized.net/hls/live/2003678/ndtv24x7/master.m3u8" type="video/mp4">
+            Your browser doesn't support HTML5 video.
+          </video>
+        </div>
+        <div class="meta">
+          <div class="title">Sample Video 2</div>
+          <div class="controls">
+            <button class="btn" data-action="play">Play</button>
+            <button class="btn secondary" data-action="download">Download</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="video-wrap">
+          <video class="player" controls preload="metadata" poster="https://via.placeholder.com/640x360?text=Video+3">
+            <source src="https://aajtaklive-amd.akamaized.net/hls/live/2014416/aajtak/aajtaklive/live_404p/chunks.m3u8" type="video/mp4">
+            Your browser doesn't support HTML5 video.
+          </video>
+        </div>
+        <div class="meta">
+          <div class="title">Sample Video 3</div>
+          <div class="controls">
+            <button class="btn" data-action="play">Play</button>
+            <button class="btn secondary" data-action="download">Download</button>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <footer>
+      Tip: Replace the <code>src</code> attributes with your own video URLs. For large files consider serving via HLS/DASH or a CDN.
+    </footer>
+  </div>
+
+  <script>
+    // Auto-pause other videos when one plays
+    const players = Array.from(document.querySelectorAll('video.player'));
+    players.forEach(p => {
+      p.addEventListener('play', () => {
+        players.forEach(other => { if (other !== p && !other.paused) other.pause(); });
+      });
+    });
+
+    // Wire up card buttons (play / download)
+    document.getElementById('videoGrid').addEventListener('click', (e) => {
+      const btn = e.target.closest('button');
+      if (!btn) return;
+      const card = btn.closest('.card');
+      const vid = card.querySelector('video');
+      const action = btn.dataset.action;
+      if (action === 'play') {
+        if (vid.paused) vid.play(); else vid.pause();
+      }
+      if (action === 'download') {
+        const src = vid.querySelector('source')?.src || vid.currentSrc;
+        if (!src) return alert('No source available for download');
+        // Start download
+        const a = document.createElement('a');
+        a.href = src;
+        a.download = '';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+      }
+    });
+
+    // Optional: small analytics - track clicks on Telegram button (client-side only)
+    document.getElementById('tgJoin').addEventListener('click', () => {
+      console.log('Telegram Join clicked');
+    });
+
+    // Accessibility: pause videos when page becomes hidden
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) players.forEach(v => v.pause());
+    });
+  </script>
+</body>
+</html>
