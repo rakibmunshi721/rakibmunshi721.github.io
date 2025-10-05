@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <title>🔴 LIVE CRICKET STREAMING</title>
+    <link href="https://vjs.zencdn.net/8.6.1/video-js.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --neon-pink: #ff00ff;
+            --neon-blue: #00ffff;
+            --neon-green: #00ff7f;
+            --neon-purple: #9400d3;
+            --neon-orange: #ff8c00;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #000000, #1a1a2e);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            border-bottom: 3px solid var(--neon-orange);
+            box-shadow: 0 0 20px rgba(255, 140, 0, 0.3);
+            position: relative;
+            z-index: 10;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            background: linear-gradient(to right, var(--neon-blue), var(--neon-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue);
+            }
+            to {
+                text-shadow: 0 0 15px var(--neon-green), 0 0 25px var(--neon-green);
+            }
+        }
+        
+        .main-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .video-container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            border: 4px solid var(--neon-purple);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(148, 0, 211, 0.5);
+            background: #000;
+            position: relative;
+        }
+        
+        .video-container::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            background: linear-gradient(45deg, 
+                var(--neon-pink), 
+                var(--neon-blue), 
+                var(--neon-green), 
+                var(--neon-orange));
+            z-index: -1;
+            border-radius: 16px;
+            animation: borderGlow 4s linear infinite;
+            background-size: 400% 400%;
+        }
+        
+        @keyframes borderGlow {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        
+        .video-js {
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            background: #000;
+        }
+        
+        .telegram-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 280px;
+            margin: 25px auto;
+            padding: 15px 25px;
+            background: linear-gradient(45deg, #0088cc, #00bfff);
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 50px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 20px rgba(0, 191, 255, 0.5);
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+        
+        .telegram-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 30px rgba(0, 191, 255, 0.8);
+            background: linear-gradient(45deg, #00bfff, #0088cc);
+        }
+        
+        .telegram-btn i {
+            margin-right: 10px;
+            font-size: 1.3rem;
+        }
+        
+        .status-bar {
+            padding: 12px 20px;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+        
+        .status-indicator {
+            display: flex;
+            align-items: center;
+        }
+        
+        .live-indicator {
+            width: 12px;
+            height: 12px;
+            background-color: #ff0000;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(0.95); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.7; }
+            100% { transform: scale(0.95); opacity: 1; }
+        }
+        
+        .vjs-control-bar {
+            background: rgba(0, 0, 0, 0.7) !important;
+            height: 50px !important;
+        }
+        
+        .vjs-big-play-button {
+            display: none !important;
+        }
+        
+        .vjs-progress-control {
+            flex-grow: 1;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 15px;
+            font-size: 0.8rem;
+            color: #aaa;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .video-container {
+                border-width: 3px;
+                border-radius: 8px;
+            }
+            
+            .telegram-btn {
+                width: 240px;
+                padding: 12px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>WATCH LIVE CRICKET</h1>
+    </div>
+    
+    <div class="main-container">
+        <div class="video-container">
+            <video
+                id="cricket-stream"
+                class="video-js vjs-default-skin"
+                controls
+                autoplay
+                muted
+                playsinline
+                preload="auto"
+                poster="https://via.placeholder.com/1920x1080/000000/FFFFFF/?text=Loading+Cricket+Stream"
+                data-setup='{"autoplay": "muted"}'>
+                <!-- Replace with your working stream URL -->
+                <source src="https://shz.al/~Khel-Box-hind.html" type="application/x-mpegURL">
+                <p class="vjs-no-js">
+                    To view this video please enable JavaScript, and consider upgrading to a
+                    web browser that <a href="https://user65873.hls-video.net/hls/token/a3f0c81db39d64f85b6f6a5cfaa1b2ce/stream.m3u8
+
+
+
+
+ hindi: "https://user65873.hls-video.net/hls/token/a3f0c81db39d64f85b6f6a5cfaa1b2ce/stream.m3u8"" target="_blank">supports HTML5 video</a>
+                </p>
+            </video>
+            
+            <div class="status-bar">
+                <div class="status-indicator">
+                    <div class="live-indicator"></div>
+                    <span>LIVE NOW</span>
+                </div>
+                <div id="stream-quality">Quality: Auto</div>
+                <div id="connection-status"><i class="fas fa-circle" style="color: #0f0;"></i> Stable Connection</div>
+            </div>
+        </div>
+        
+        <a href="https://t.me/SuperModsApk" class="telegram-btn" target="_blank">
+            <i class="fab fa-telegram"></i> JOIN TELEGRAM CHANNEL
+        </a>
+    </div>
+
+    <footer>
+        Enjoy the match! Refresh if stream stops working.
+    </footer>
+
+    <script src="https://vjs.zencdn.net/8.6.1/video.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-quality-levels/2.1.0/videojs-contrib-quality-levels.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-hls-quality-selector/1.1.4/videojs-hls-quality-selector.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize player
+            const player = videojs('cricket-stream', {
+                fluid: true,
+                responsive: true,
+                liveui: true,
+                autoplay: 'muted',
+                controlBar: {
+                    children: [
+                        'playToggle',
+                        'volumePanel',
+                        'currentTimeDisplay',
+                        'timeDivider',
+                        'durationDisplay',
+                        'progressControl',
+                        'liveDisplay',
+                        'remainingTimeDisplay',
+                        'customControlSpacer',
+                        'playbackRateMenuButton',
+                        'qualitySelector',
+                        'fullscreenToggle'
+                    ]
+                }
+            });
+            
+            // Remove big play button
+            player.bigPlayButton.hide();
+            
+            // Enable quality selector
+            player.ready(function() {
+                if (player.tech_.sourceHandler_ && player.tech_.sourceHandler_.name === 'hls') {
+                    player.hlsQualitySelector = player.hlsQualitySelector({
+                        displayCurrentQuality: true,
+                        placementIndex: 1,
+                        vjsIconClass: 'vjs-icon-cog'
+                    });
+                }
+                
+                // Add unmute button
+                const unmuteBtn = document.createElement('button');
+                unmuteBtn.className = 'vjs-mute-control vjs-control vjs-button';
+                unmuteBtn.innerHTML = '<span class="vjs-icon-placeholder"></span>';
+                unmuteBtn.title = 'Unmute';
+                unmuteBtn.addEventListener('click', function() {
+                    player.muted(false);
+                    unmuteBtn.remove();
+                });
+                document.querySelector('.vjs-volume-panel').after(unmuteBtn);
+            });
+            
+            // Connection status monitoring
+            let connectionStatus = document.getElementById('connection-status');
+            let lastUpdateTime = Date.now();
+            
+            player.on('error', function() {
+                connectionStatus.innerHTML = '<i class="fas fa-circle" style="color: #f00;"></i> Connection Error';
+                setTimeout(function() {
+                    player.src({
+                        src: player.currentSrc(),
+                        type: 'application/x-mpegURL'
+                    });
+                    player.play();
+                }, 3000);
+            });
+            
+            player.on('playing', function() {
+                connectionStatus.innerHTML = '<i class="fas fa-circle" style="color: #0f0;"></i> Stable Connection';
+            });
+            
+            player.on('waiting', function() {
+                connectionStatus.innerHTML = '<i class="fas fa-circle" style="color: #ff0;"></i> Buffering...';
+            });
+            
+            // Update quality display
+            player.on('qualitychange', function() {
+                document.getElementById('stream-quality').textContent = 'Quality: ' + player.currentQuality();
+            });
+        });
+    </script>
+</body>
+</html>
