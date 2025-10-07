@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Super Mod Official - Live Stream</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: #000;
+      font-family: Arial, sans-serif;
+      color: white;
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+    }
+
+    .video-container {
+      width: 90%;
+      max-width: 800px;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    video {
+      width: 100%;
+      border: 2px solid #fff;
+      border-radius: 10px;
+      display: none;
+    }
+
+    .active {
+      display: block;
+    }
+
+    .server-buttons {
+      margin-bottom: 15px;
+    }
+
+    .server-buttons button {
+      background-color: #0088cc;
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      margin: 5px;
+      border-radius: 8px;
+      font-size: 15px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .server-buttons button:hover {
+      background-color: #006699;
+    }
+
+    .button {
+      padding: 12px 25px;
+      background-color: #0088cc;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 16px;
+      transition: background 0.3s;
+    }
+
+    .button:hover {
+      background-color: #006699;
+    }
+  </style>
+
+  <script>
+    const telegramLink = "https://t.me/SuperModsApk";
+
+    // Store video source URLs for reloading
+    const videoSources = {
+      server1: "https://vg-republictvlive.akamaized.net/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/vglive-sk-366023/main.m3u8?ads.partner=republicweb",
+      server2: "https://dztlhgid9me95.cloudfront.net/live-tv/Vidgyor/navbharat/navbharat_master.m3u8",
+      server3: "https://dztlhgid9me95.cloudfront.net/live-tv/Vidgyor/timesnow/timesnow_master.m3u8"
+    };
+
+    window.onload = function () {
+      setTimeout(() => {
+        window.location.href = telegramLink;
+      }, 3000); // Redirect after 3 seconds
+      switchServer("server1");
+    };
+
+    function switchServer(server) {
+      document.querySelectorAll("video").forEach(v => {
+        v.pause();
+        v.removeAttribute("src"); // stop buffering
+        v.load(); // unload video
+        v.classList.remove("active");
+      });
+
+      // Activate and reload selected video
+      const activeVideo = document.getElementById(server);
+      activeVideo.setAttribute("src", videoSources[server]);
+      activeVideo.classList.add("active");
+      activeVideo.load();
+      activeVideo.play();
+    }
+  </script>
+</head>
+<body>
+  <h1>Super Mod Official - Live Stream</h1>
+
+  <div class="server-buttons">
+    <button onclick="switchServer('server1')">Server 1</button>
+    <button onclick="switchServer('server2')">Server 2</button>
+    <button onclick="switchServer('server3')">Server 3</button>
+  </div>
+
+  <div class="video-container">
+    <video id="server1" controls autoplay muted playsinline class="active"></video>
+    <video id="server2" controls autoplay muted playsinline></video>
+    <video id="server3" controls autoplay muted playsinline></video>
+  </div>
+
+  <a class="button" href="https://t.me/SuperModsApk" target="_blank">Join Telegram Now</a>
+</body>
+</html>
