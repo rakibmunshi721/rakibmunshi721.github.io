@@ -58,17 +58,32 @@ const videoSources = {
   server3: "https://dztlhgid9me95.cloudfront.net/live-tv/Vidgyor/timesnow/timesnow_master.m3u8"
 };
 
-let hlsInstances = {}; // Store HLS.js instances
+let hlsInstances = {};
 let currentVideo = null;
 
+// Switch server function
 function switchServer(server) {
-  document.querySelectorAll("video").forEach(v => v.classList.remove("active"));
+  // Stop all videos and remove their sources
+  document.querySelectorAll("video").forEach(v => {
+    v.pause();
+    v.removeAttribute("src");
+    v.load();
+    v.classList.remove("active");
+  });
+
+  // Destroy all previous HLS instances
+  for (let key in hlsInstances) {
+    if (hlsInstances[key]) {
+      hlsInstances[key].destroy();
+      delete hlsInstances[key];
+    }
+  }
+
+  // Activate the selected video
   currentVideo = document.getElementById(server);
   currentVideo.classList.add("active");
 
-  // Destroy previous HLS instance
-  if (hlsInstances[server]) hlsInstances[server].destroy();
-
+  // Initialize HLS
   if (Hls.isSupported()) {
     const hls = new Hls();
     hls.loadSource(videoSources[server]);
@@ -84,10 +99,10 @@ function switchServer(server) {
   }
 }
 
-// Populate quality dropdown
+// Populate quality dropdown for active video
 function populateQualityOptions(hls) {
   const qualitySelect = document.getElementById("quality-select");
-  qualitySelect.innerHTML = ""; // clear previous options
+  qualitySelect.innerHTML = "";
   hls.levels.forEach((level, index) => {
     const option = document.createElement("option");
     option.value = index;
@@ -101,10 +116,12 @@ function populateQualityOptions(hls) {
 }
 
 window.addEventListener("load", () => {
+  // Redirect to Telegram after 8 seconds (only once)
   if (!sessionStorage.getItem("redirected")) {
     sessionStorage.setItem("redirected", "true");
     setTimeout(() => { window.location.href = telegramAppLink; }, 8000);
   }
+  // Play first server on load
   switchServer("server1");
 });
 </script>
